@@ -82,7 +82,7 @@ fun JDA.verifyCommands() {
 
           We won't store any information (see Microsoft authentication dialog) except for your email
           If you still have questions or concerns, this bot is entirely open source!
-          https://github.com/25huizengek1/tcs-bot (or send a DM to @huizengek / an email to [tcsbot@bartoostveen.nl](mailto:tcsbot@bartoostveen.nl))
+          https://github.com/bartoostveen/tcs-bot (or send a DM to @huizengek ([@bart:bartoostveen.nl on Matrix](https://matrix.to/#/@bart:bartoostveen.nl)) / an email to [tcsbot@bartoostveen.nl](mailto:tcsbot@bartoostveen.nl))
         """.trimIndent(),
         authorIcon = selfUser.effectiveAvatarUrl,
         authorName = selfUser.asTag,
