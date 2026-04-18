@@ -1,7 +1,7 @@
 [versions]
-kotlin = "2.3.0"
-ktor = "3.4.0"
-exposed = "1.0.0"
+kotlin = "2.3.20"
+ktor = "3.4.2"
+exposed = "1.2.0"
 coroutines = "1.10.2"
 
 [plugins]
@@ -9,8 +9,8 @@ kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 
 [libraries]
-jda = { module = "net.dv8tion:JDA", version = "5.6.1" }
-jda-ktx = { module = "club.minnced:jda-ktx", version = "0.13.0" }
+jda = { module = "net.dv8tion:JDA", version = "6.4.1" }
+jda-ktx = { module = "club.minnced:jda-ktx", version = "0.14.2" }
 
 ktor-server-core = { module = "io.ktor:ktor-server-core", version.ref = "ktor" }
 ktor-server-netty = { module = "io.ktor:ktor-server-netty", version.ref = "ktor" }
@@ -32,11 +32,11 @@ ktor-client-serialization = { module = "io.ktor:ktor-client-content-negotiation"
 ktor-client-logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktor" }
 ktor-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
 
-logback = { module = "ch.qos.logback:logback-classic", version = "1.5.26" }
+logback = { module = "ch.qos.logback:logback-classic", version = "1.5.32" }
 exposed-core = { module = "org.jetbrains.exposed:exposed-core", version.ref = "exposed" }
 exposed-dao = { module = "org.jetbrains.exposed:exposed-dao", version.ref = "exposed" }
 exposed-jdbc = { module = "org.jetbrains.exposed:exposed-jdbc", version.ref = "exposed" }
-postgres = { module = "org.postgresql:postgresql", version = "42.7.8" }
+postgres = { module = "org.postgresql:postgresql", version = "42.7.10" }
 hikaricp = { module = "com.zaxxer:HikariCP", version = "7.0.2" }
 kreds = { module = "io.github.crackthecodeabhi:kreds", version = "0.9.1" }
 
@@ -44,5 +44,5 @@ kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version 
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
 
 flexmark-md = { module = "com.vladsch.flexmark:flexmark-html2md-converter", version = "0.64.8" }
-jwt = { module = "com.auth0:java-jwt", version = "4.5.0" }
+jwt = { module = "com.auth0:java-jwt", version = "4.5.1" }
 jwt-jwks = { module = "com.auth0:jwks-rsa", version = "0.23.0" }

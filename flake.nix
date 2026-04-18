@@ -76,7 +76,7 @@
             packages = with pkgs; [
               gradle
               jdk
-              python313
+              python314
               updateVerificationMetadata
             ];
 

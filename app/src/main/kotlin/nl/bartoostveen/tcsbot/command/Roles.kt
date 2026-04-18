@@ -15,8 +15,8 @@ import net.dv8tion.jda.api.entities.Role
 import net.dv8tion.jda.api.events.interaction.command.GenericCommandInteractionEvent
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent
 import net.dv8tion.jda.api.requests.restaction.CommandListUpdateAction
-import nl.bartoostveen.tcsbot.util.adminPermissions
 import nl.bartoostveen.tcsbot.database.*
+import nl.bartoostveen.tcsbot.util.adminPermissions
 import nl.bartoostveen.tcsbot.util.printException
 import nl.bartoostveen.tcsbot.util.unaryPlus
 import java.awt.Color
@@ -110,11 +110,12 @@ fun JDA.roleCommands() {
   }
 
   listener<ButtonInteractionEvent> { event ->
-    if (event.button.id?.startsWith("rolemenu-") != true) return@listener
-    val arg = event.button.id
-      ?.split('-')
-      ?.take(3)
-      ?.takeIf { it.all(String::isNotBlank) } ?: return@listener
+    val buttonId = event.button.customId
+    if (buttonId?.startsWith("rolemenu-") != true) return@listener
+    val arg = buttonId
+      .split('-')
+      .take(3)
+      .takeIf { it.all(String::isNotBlank) } ?: return@listener
     val (_, menuName, roleId) = arg
     val guild = event.guild ?: return@listener
     val member = event.member ?: return@listener
