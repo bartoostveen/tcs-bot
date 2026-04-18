@@ -1,5 +1,6 @@
 package nl.bartoostveen.tcsbot.command
 
+import dev.minn.jda.ktx.coroutines.await
 import dev.minn.jda.ktx.events.listener
 import dev.minn.jda.ktx.events.onCommand
 import dev.minn.jda.ktx.interactions.commands.option
@@ -124,9 +125,13 @@ fun JDA.roleCommands() {
     val role = guild.getRoleById(dbRole.discordId) ?: return@listener
 
     +event.deferReply(true)
-    if (role in member.unsortedRoles) +guild.removeRoleFromMember(member, role)
-    else +guild.addRoleToMember(member, role)
-    +event.hook.editOriginal("Toggled role <@&$roleId>: ${dbRole.description}")
+    runCatching {
+      if (role in member.unsortedRoles) guild.removeRoleFromMember(member, role).await()
+      else guild.addRoleToMember(member, role).await()
+      +event.hook.editOriginal("Toggled role <@&$roleId>: ${dbRole.description}")
+    }.onFailure {
+      +event.hook.editOriginal("Could not modify your roles. Do I have permissions to modify you?")
+    }.printException()
   }
 
   onCommand("setteacherrole") { event ->
