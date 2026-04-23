@@ -85,7 +85,7 @@ object AppConfig {
   val PORT by variable({ 6969 }, int)
   val HOSTNAME by variable()
   val ENVIRONMENT by variable({ Environment.PRODUCTION }, enum<Environment>())
-  val METRICS_PREFIX by variable({ "100." }, id)
+  val METRICS_PREFIX by variable({ null }, id)
 
   val DISCORD_DEPLOYER_ID by variable(required, list())
 

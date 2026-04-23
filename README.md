@@ -29,7 +29,8 @@ These variables are automatically loaded from the current working directory's `.
 - `CANVAS_ACCESS_TOKEN`: Canvas access token (**required**)
 - `CANVAS_BASE_URL`: (default: `https://canvas.utwente.nl`)
 - `CANVAS_CA_BUNDLE`: ca bundle pointing to recent ca bundle (set of globally trusted certificates) (recommended: Canvas
-  uses fairly new root certificates that are not yet bundled with a lot of JDKs) (example: `/etc/ssl/certs/ca-bundle.crt`)
+  uses fairly new root certificates that are not yet bundled with a lot of JDKs) (example:
+  `/etc/ssl/certs/ca-bundle.crt`)
 
 
 - `REDIS_CONNECTION_STRING`: connection string for the Redis/Valkey cache (default: `localhost:6379`)
@@ -48,7 +49,7 @@ These variables are automatically loaded from the current working directory's `.
 - `HOSTNAME`: the hostname used for (for example) redirect URI's (**required**)
 - `ENVIRONMENT`: either `DEVELOPMENT` or `PRODUCTION` (default: `PRODUCTION`)
 - `METRICS_PREFIX`: ip address prefix Prometheus metrics are available on (doesn't affect `DEVELOPMENT` environment) (
-  default: "100")
+  default: null)
 
 
 - `DISCORD_ACCESS_TOKEN`: Discord Bot token (**required**)

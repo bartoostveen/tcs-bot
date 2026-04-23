@@ -185,7 +185,7 @@ private fun Application.monitoring() {
     get("/metrics") {
       if (
         AppConfig.ENVIRONMENT == AppConfig.Environment.PRODUCTION &&
-        !call.request.origin.remoteHost.startsWith(AppConfig.METRICS_PREFIX)
+        AppConfig.METRICS_PREFIX?.let { call.request.origin.remoteHost.startsWith(it) } == false
       ) notFound()
 
       call.respond(AppConfig.metricsRegistry.scrape())
