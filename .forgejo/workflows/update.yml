@@ -54,6 +54,8 @@ jobs:
               pr_body="$(printf '%s\n\n```\n%s\n```' "$pr_body" "$commit_body")"
             fi
 
+            pr_body="$(printf '%s\n\n## flake.lock diff\n```diff\n%s\n```' "$pr_body" "$(git diff $base..$head)")"
+
             git switch -c "$head"
             git push --force origin "$head"
 
