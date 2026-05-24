@@ -40,7 +40,7 @@ postgres = { module = "org.postgresql:postgresql", version = "42.7.11" }
 hikaricp = { module = "com.zaxxer:HikariCP", version = "7.0.2" }
 kreds = { module = "io.github.crackthecodeabhi:kreds", version = "0.9.1" }
 
-kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version = "0.7.1" }
+kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version = "0.8.0-0.6.x-compat" }
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
 
 flexmark-md = { module = "com.vladsch.flexmark:flexmark-html2md-converter", version = "0.64.8" }
