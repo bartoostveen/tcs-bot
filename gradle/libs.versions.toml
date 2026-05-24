@@ -44,5 +44,5 @@ kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version 
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
 
 flexmark-md = { module = "com.vladsch.flexmark:flexmark-html2md-converter", version = "0.64.8" }
-jwt = { module = "com.auth0:java-jwt", version = "4.5.1" }
+jwt = { module = "com.auth0:java-jwt", version = "4.5.2" }
 jwt-jwks = { module = "com.auth0:jwks-rsa", version = "0.23.0" }
