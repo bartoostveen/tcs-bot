@@ -24,7 +24,7 @@ ktor-server-conditionalHeaders = { module = "io.ktor:ktor-server-conditional-hea
 ktor-server-cors = { module = "io.ktor:ktor-server-cors", version.ref = "ktor" }
 ktor-server-compression = { module = "io.ktor:ktor-server-compression", version.ref = "ktor" }
 ktor-server-metrics = { module = "io.ktor:ktor-server-metrics-micrometer", version.ref = "ktor" }
-ktor-server-metrics-prometheus = { module = "io.micrometer:micrometer-registry-prometheus", version = "1.16.2" }
+ktor-server-metrics-prometheus = { module = "io.micrometer:micrometer-registry-prometheus", version = "1.16.5" }
 
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
 ktor-client-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktor" }
