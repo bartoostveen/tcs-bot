@@ -9,7 +9,7 @@ kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 
 [libraries]
-jda = { module = "net.dv8tion:JDA", version = "6.4.1" }
+jda = { module = "net.dv8tion:JDA", version = "6.4.2" }
 jda-ktx = { module = "club.minnced:jda-ktx", version = "0.14.2" }
 
 ktor-server-core = { module = "io.ktor:ktor-server-core", version.ref = "ktor" }
