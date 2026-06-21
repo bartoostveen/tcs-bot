@@ -37,7 +37,7 @@ exposed-core = { module = "org.jetbrains.exposed:exposed-core", version.ref = "e
 exposed-dao = { module = "org.jetbrains.exposed:exposed-dao", version.ref = "exposed" }
 exposed-jdbc = { module = "org.jetbrains.exposed:exposed-jdbc", version.ref = "exposed" }
 postgres = { module = "org.postgresql:postgresql", version = "42.7.11" }
-hikaricp = { module = "com.zaxxer:HikariCP", version = "7.0.2" }
+hikaricp = { module = "com.zaxxer:HikariCP", version = "7.1.0" }
 kreds = { module = "io.github.crackthecodeabhi:kreds", version = "0.9.1" }
 
 kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version = "0.8.0-0.6.x-compat" }
