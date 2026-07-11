@@ -2,37 +2,25 @@
   schedule:
     - cron: 0 0 * * 0
   workflow_dispatch: {}
-
 jobs:
   nix-flake-update:
     runs-on: [gpg, native-x86_64-linux]
     steps:
-      - name: import GPG key
-        run: |
-          gpg --import <(cat <<< "${GPG_PRIVKEY:?}")
-        env:
-          GPG_PRIVKEY: ${{ secrets.GPG_PRIVKEY }}
-
-      - name: configure git
-        run: |
-          git config --global user.name "forgejo-actions[bot]"
-          git config --global user.email "git@bartoostveen.nl"
-          git config --global push.default simple
-          git config --global commit.gpgSign true
-          git config --global user.signingKey "${GPG_KEY_ID:?}"
-        env:
-          GPG_KEY_ID: ${{ vars.GPG_KEY_ID }}
-
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
-
+      - uses: actions/setup-home@85c04dfa32da72ea8d9d9058601121a7194672fa # v1
+        with:
+          gpg-privkey: ${{ secrets.GPG_PRIVKEY }}
+          gpg-key-id: ${{ vars.GPG_KEY_ID }}
       - name: nix flake update
         run: nix flake update --commit-lock-file
-
       - name: send PR
         run: |
           base="$(git branch --show-current)"
           if [[ "$(git rev-list origin/"$base"..HEAD --count)" -ne 0 ]]; then
             head="ci-flake-update"
+
+            git switch -c "$head"
+            git push --force origin "$head"
 
             existing_prs="$(
               curl --silent --fail-with-body \
@@ -53,9 +41,6 @@ jobs:
             if [[ -n "$commit_body" ]]; then
               pr_body="$(printf '%s\n\n```\n%s\n```' "$pr_body" "$commit_body")"
             fi
-
-            git switch -c "$head"
-            git push --force origin "$head"
 
             jq -n \
               --arg base "$base" \

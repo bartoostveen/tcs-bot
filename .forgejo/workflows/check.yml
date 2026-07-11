@@ -1,9 +1,7 @@
 name: nix flake check
-
-on:
+"on":
   push:
   pull_request:
-
 jobs:
   check:
     runs-on: [native-x86_64-linux, bigger-parallel]

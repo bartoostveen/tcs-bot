@@ -1,10 +1,8 @@
 name: push nix cache
-
-on:
+"on":
   push:
     branches:
       - master
-
 jobs:
   cache:
     runs-on: native-x86_64-linux
