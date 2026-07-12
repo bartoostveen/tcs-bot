@@ -5,7 +5,7 @@ name: push nix cache
       - master
 jobs:
   cache:
-    runs-on: native-x86_64-linux
+    runs-on: [native-x86_64-linux, bigger-parallel]
     steps:
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
       - run: nix run .#cache -L --accept-flake-config
