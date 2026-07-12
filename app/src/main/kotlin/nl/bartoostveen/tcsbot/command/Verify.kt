@@ -12,12 +12,8 @@ import dev.minn.jda.ktx.messages.MessageCreate
 import dev.minn.jda.ktx.messages.MessageEdit
 import dev.minn.jda.ktx.messages.send
 import io.ktor.http.encodeURLPath
-import io.ktor.util.generateNonce
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.async
-import kotlinx.coroutines.awaitAll
-import kotlinx.coroutines.currentCoroutineContext
-import kotlinx.coroutines.delay
+import io.ktor.util.generateNonceSuspend
+import kotlinx.coroutines.*
 import net.dv8tion.jda.api.JDA
 import net.dv8tion.jda.api.entities.Role
 import net.dv8tion.jda.api.entities.UserSnowflake
@@ -35,6 +31,7 @@ import nl.bartoostveen.tcsbot.util.unaryPlus
 import java.awt.Color
 import kotlin.math.min
 import kotlin.time.Clock
+import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.ExperimentalTime
 import kotlin.time.toJavaInstant
 
@@ -106,7 +103,7 @@ fun JDA.verifyCommands() {
       return@onButton +event.hook.editOriginal("Already verified, applying changes...")
     }
 
-    val nonce = generateNonce()
+    val nonce = generateNonceSuspend()
     runCatching {
       editMember(event.member!!.id, event.guild!!.id) {
         authNonce = nonce
@@ -292,15 +289,15 @@ suspend fun JDA.assignRole(dbMember: Member): Boolean = runCatching {
           )
           action.await()
 
-          delay(500L) // Because of the server-side race condition in Discord
+          delay(500L.milliseconds) // Because of the server-side race condition in Discord
           +guild.addRoleToMember(member, verifiedRole)
           if (canvasRole != null) {
             if (canvasRole > CourseUser.Enrollment.Role.Student) teacherRole?.let {
-              delay(500)
+              delay(500.milliseconds)
               +guild.addRoleToMember(member, it)
             }
             enrolledRole?.let {
-              delay(500)
+              delay(500.milliseconds)
               +guild.addRoleToMember(member, it)
             }
           }
@@ -331,7 +328,7 @@ suspend fun JDA.removeRoles(dbMember: Member) = runCatching {
         .mapNotNull { guild.getRoleById(it) }
         .forEach {
           guild.removeRoleFromMember(member, it).await()
-          delay(500)
+          delay(500.milliseconds)
         }
     }
   }

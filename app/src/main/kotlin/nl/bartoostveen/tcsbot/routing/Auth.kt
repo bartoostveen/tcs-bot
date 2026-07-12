@@ -14,21 +14,15 @@ import io.ktor.server.response.respondRedirect
 import io.ktor.server.routing.Route
 import io.ktor.server.routing.get
 import io.ktor.server.routing.route
-import io.ktor.util.generateNonce
+import io.ktor.util.generateNonceSuspend
 import kotlinx.html.*
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import net.dv8tion.jda.api.JDA
-import nl.bartoostveen.tcsbot.*
+import nl.bartoostveen.tcsbot.AppConfig
 import nl.bartoostveen.tcsbot.command.assignRole
 import nl.bartoostveen.tcsbot.database.getMemberByNonce
-import nl.bartoostveen.tcsbot.util.asNullableString
-import nl.bartoostveen.tcsbot.util.badRequest
-import nl.bartoostveen.tcsbot.util.internalServerError
-import nl.bartoostveen.tcsbot.util.printException
-import nl.bartoostveen.tcsbot.util.queryParameter
-import nl.bartoostveen.tcsbot.util.sha256
-import nl.bartoostveen.tcsbot.util.string
+import nl.bartoostveen.tcsbot.util.*
 import java.net.URI
 import java.security.interfaces.RSAPublicKey
 import java.util.concurrent.TimeUnit
@@ -39,7 +33,11 @@ private const val SCOPE = "openid profile email"
 private val REDIRECT_URI = "${AppConfig.HOSTNAME}/oauth/callback"
 
 private val jwksProvider =
-  JwkProviderBuilder(URI("${AppConfig.MICROSOFT_AUTH_ENDPOINT}/discovery/keys?appid=${AppConfig.MICROSOFT_CLIENT_ID}").toURL())
+  JwkProviderBuilder(
+    URI(
+      "${AppConfig.MICROSOFT_AUTH_ENDPOINT}/discovery/keys?appid=${AppConfig.MICROSOFT_CLIENT_ID}"
+    ).toURL()
+  )
     .cached(10, 24, TimeUnit.HOURS)
     .rateLimited(10, 1, TimeUnit.HOURS)
     .build()
@@ -54,12 +52,12 @@ fun Route.authRouter(
     val nonce = queryParameter("nonce")
     if (getMemberByNonce(nonce, fetchGuilds = false) == null) badRequest("Invalid nonce")
 
-    val codeVerifier = generateNonce(43)
-    val codeChallenge = base64.encode(codeVerifier.sha256)
+    val codeVerifier = generateNonceSuspend(43)
+    val codeChallenge = base64.encode(codeVerifier.toByteArray().sha256)
     runCatching {
       redis.set(
         key = "nonce:$nonce",
-        value = codeVerifier.decodeToString(),
+        value = codeVerifier,
         setOption = SetOption.Builder().exSeconds(1.hours.inWholeSeconds.toULong()).build()
       )
     }.printException().onFailure { internalServerError() }
